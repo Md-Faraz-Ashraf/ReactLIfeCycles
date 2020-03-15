@@ -52,6 +52,7 @@ class Comp2 extends React.Component{
 }
 
 const mapStateToProps=(state)=>{
+    console.log('REDUX com2',state)
     const {UserId,UserData} = state.Model1
     return {
         userId:UserId,

@@ -1,6 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
+import comp5 from './comp5'
+import { withRouter } from 'react-router-dom'
+
 
 // getiing param from redux in props.
 // CDU is called with param.
@@ -15,6 +18,10 @@ class Comp1 extends React.Component{
         }
     }
 
+    handleClick = ()=>{
+        console.log("click to 5")
+        this.props.history.push('/comp5')
+    }
     componentDidMount(){
         console.log("Child 1 CDM")
        // console.log("child props",this.props)
@@ -46,15 +53,17 @@ class Comp1 extends React.Component{
         return(
             <React.Fragment>
                 This is Comp 1.{Object.keys(this.state.user).length!==0 && this.state.user[0].title}
+                <button onClick={this.handleClick}>Buutton to comp5</button>
             </React.Fragment>
         )
     }
 }
 
 const mapStateToProps=(state)=>{
+    console.log("REDUX comp1",state)
     const{UserId}=state.Model1
     return {
         userId:UserId
     }
 }
-export default connect(mapStateToProps,null)(Comp1)
+export default withRouter(connect(mapStateToProps,null)(Comp1))
