@@ -10,7 +10,7 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Route exact path='/home' component = {HomePage}/>
-        <Route exact path='/comp5' component = {comp5}/>
+        <Route exact path='/' component = {MForm}/>
       </BrowserRouter>
     </Provider>
   );

@@ -3,21 +3,24 @@ import React, { useState, useEffect, forwardRef, useImperativeHandle } from "rea
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-
+import { connect } from 'react-redux'
+import Axios from 'axios'
 const Form1 = forwardRef((props, ref) => {
+  console.log("######################",props,ref)
 
     // The component instance will be extended
     // with whatever you return from the callback passed
     // as the second argument
     useImperativeHandle(ref, () => ({
   
-     validate(){
-         console.log("Validate from form1 called",state)
+     async validator(){
+         console.log("Validate from Validator form1 called",state, props)
+         const result1 = await Axios({url:`https://jsonplaceholder.typicode.com/posts?userId=${props.Model1.UserId}`,method:'Get'})
+         console.log("Result", result1)
      }
   
     }));
   const [state, setState] = useState({
-    data: {
       f1: {
         firstname: "",
         lastname: ""
@@ -26,21 +29,8 @@ const Form1 = forwardRef((props, ref) => {
         firstname: "",
         lastname: ""
       }
-    },
-    errors: {
-      f1: {
-        firstname: "",
-        lastname: ""
-      },
-      f2: {
-        firstname: "",
-        lastname: ""
-      }
-    }
   });
-  function validate(){
-    console.log("Validaing Form 1")
-  }
+  
   useEffect(() => {
     console.log("Form 1 CDU", state);
     props.setDataToValidate(state);
@@ -56,7 +46,7 @@ const Form1 = forwardRef((props, ref) => {
     <Grid container>
       <ExpansionPanel>
         <ExpansionPanelSummary>
-          <Typography>Form 1.1</Typography>
+          <Typography component={'span'}>Form 1.1</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <TextField
@@ -76,7 +66,7 @@ const Form1 = forwardRef((props, ref) => {
 
       <ExpansionPanel>
         <ExpansionPanelSummary>
-          <Typography>Form 1.2</Typography>
+          <Typography component={'span'}>Form 1.2</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <TextField
@@ -97,4 +87,13 @@ const Form1 = forwardRef((props, ref) => {
   );
 })
 
-export default Form1
+
+
+const connectedComp = forwardRef((props,ref)=>{
+  return <Form1 ref ={ref} {...props}/>
+})
+
+const mapStateToProps=(state)=>{
+  return state
+}
+export default connect(mapStateToProps,null,null,{forwardRef:true})(connectedComp)

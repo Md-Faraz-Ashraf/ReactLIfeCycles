@@ -37,7 +37,7 @@ const Form2 = forwardRef((props, ref) => {
   
     return(
         <Grid container>
-            <TextField id="standard-basic" label="Age" value={state.age} onChnage={handleChange('age')} />
+            <TextField id="standard-basic" label="Age" value={state.age} onChange={handleChange('age')} />
             <TextField id="standard-basic" label="Address" value={state.address} onChange={handleChange('address')}/>
         </Grid>
         

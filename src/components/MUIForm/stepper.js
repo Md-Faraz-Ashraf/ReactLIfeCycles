@@ -50,7 +50,7 @@ export default function MFormStepper() {
 
   function getDataToValidate(dv){
       //console.log("Data for validation",dv)
-      setData(dv)
+     // setData(dv)
   }
   const steps = getSteps();
 
@@ -69,7 +69,7 @@ export default function MFormStepper() {
 
   const handleNext = () => {
     if(activeStep==0){
-      form1Ref.current.validate()
+      form1Ref.current.validator()
     }
     if( activeStep==1){
       form2Ref.current.validate()
@@ -113,13 +113,13 @@ export default function MFormStepper() {
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>
+            <Typography component={'span'} className={classes.instructions}>
               All steps completed - you&apos;re finished
             </Typography>
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+            <Typography component={'span'}  className={classes.instructions}>{getStepContent(activeStep)}</Typography>
             <div>
               <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                 Back
